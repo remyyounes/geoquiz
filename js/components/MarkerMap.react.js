@@ -53,14 +53,21 @@ var MarkerMap = React.createClass({
       marker.setMap(map);
       googleMarkers.push( marker );
     }
-    this.setState({allMarkers: updatedMarkers});
+    this.setState({
+      allMarkers: updatedMarkers,
+      googleMarkers: googleMarkers
+      });
   },
   render: function() {
     var style = {
-      width: 800,
-      height: 600
+      width: "calc(100% - 400px)",
+      height: "100vh"
     }
-    return ( <div style={style}> </div> );
+    return (
+      <div
+        className="map"
+        style={style}
+      />);
   },
   componentDidMount: function() {
     GeoquizStore.addChangeListener(this._onChange);

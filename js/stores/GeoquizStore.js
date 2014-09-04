@@ -51,6 +51,9 @@ AppDispatcher.register( function(payload) {
     case GeoquizConstants.MARKER_DELETE:
       removeMarker(action.marker);
       break;
+    case GeoquizConstants.MARKER_ENABLE:
+      enableMarker(action.marker);
+      break;
     default:
       return true;
   };

@@ -1,9 +1,18 @@
 body {
+  margin: 0;
   font-family: arial;
 }
+input[type="text"] {
+  padding: 5px;
+  margin: 0;
+}
+
 .marker-list {
+  display: inline-block;
   background: #ddd;
   width: 400px;
+  height:100vh;
+  vertical-align: top;
 }
 
 .marker-list ul {
@@ -18,7 +27,7 @@ body {
 }
 
 .marker-list .marker {
-  padding: 2px 5px;
+  padding: 5px;
   background: #eee;
   margin-bottom: 10px;
 }
@@ -27,4 +36,8 @@ body {
   border: 0;
   background: #ccc;
   margin: auto 5px;
+}
+
+.map {
+  display: inline-block;
 }

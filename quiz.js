@@ -1,5 +1,5 @@
 ;(function(){
-  var GeoQuiz = window.GeoQuiz = function(params){
+  var Geoquiz = window.Geoquiz = function(params){
     this.score = {};
     this.el = params.el;
     this.map = params.map;
@@ -12,32 +12,32 @@
     this.init();
   };
 
-  GeoQuiz.prototype.init = function(){
+  Geoquiz.prototype.init = function(){
     this.scoreEl = this.el.querySelector(".score");
     this.questionEl = this.el.querySelector(".question");
     this.attachEventListeners();
   };
 
-  GeoQuiz.prototype.startGame = function(){
+  Geoquiz.prototype.startGame = function(){
     this.resetScore();
     this.nextQuestion();
   };
 
-  GeoQuiz.prototype.nextQuestion = function(){
+  Geoquiz.prototype.nextQuestion = function(){
     var place = this.getPlace();
     this.showQuestion(place.title);
   };
 
-  GeoQuiz.prototype.showQuestion = function(question){
+  Geoquiz.prototype.showQuestion = function(question){
     this.questionEl.innerHTML = question;
   };
 
-  GeoQuiz.prototype.resetScore = function(){
+  Geoquiz.prototype.resetScore = function(){
     this.score = {};
     this.renderScore();
   };
 
-  GeoQuiz.prototype.updateScore = function(answer){
+  Geoquiz.prototype.updateScore = function(answer){
     if(answer){
       this.score.good += 1
       // this.getCurrentPlace().score.
@@ -47,56 +47,56 @@
     this.renderScore();
   };
 
-  GeoQuiz.prototype.renderScore = function(){
+  Geoquiz.prototype.renderScore = function(){
     this.scoreEl.innerHTML = "Score:" + "0";
   };
 
-  GeoQuiz.prototype.getPlace = function(){
+  Geoquiz.prototype.getPlace = function(){
     var len = this.places.length;
     this.currentPlaceIndex = this.getNextPlaceIndex();
     // this.currentPlaceIndex = Math.floor(Math.random() * len);
     return this.places[this.currentPlaceIndex];
   };
 
-  GeoQuiz.prototype.getNextPlaceIndex = function(){
+  Geoquiz.prototype.getNextPlaceIndex = function(){
     return this.currentPlaceIndex+1 >= this.places.length ? 0 : this.currentPlaceIndex+1;
   };
 
-  GeoQuiz.prototype.hideMarkers = function(){
+  Geoquiz.prototype.hideMarkers = function(){
     this.guessMarker && this.guessMarker.setMap(null);
     this.answerMarker && this.answerMarker.setMap(null);
     this.distancePath && this.distancePath.setMap(null);
   };
-  GeoQuiz.prototype.hideMarker = function(marker){
+  Geoquiz.prototype.hideMarker = function(marker){
 
   };
 
-  GeoQuiz.prototype.showAnswer = function(guessLatLng, answerLatLng){
+  Geoquiz.prototype.showAnswer = function(guessLatLng, answerLatLng){
     var itinerary = [ guessLatLng, answerLatLng ];
     this.showPath( itinerary );
     this.guessMarker = this.addMarker(guessLatLng);
     this.answerMarker = this.addPlaceMarker(this.getCurrentPlace());
   };
 
-  GeoQuiz.prototype.hideGuess = function(){
+  Geoquiz.prototype.hideGuess = function(){
 
   };
 
-  GeoQuiz.prototype.hideMarker = function(marker){
+  Geoquiz.prototype.hideMarker = function(marker){
 
   };
 
-  GeoQuiz.prototype.getPlaceLatLng = function(place){
+  Geoquiz.prototype.getPlaceLatLng = function(place){
     var p = this.getCurrentPlace();
     var latLng = new google.maps.LatLng(p.lat, p.lng);
     return latLng;
   };
 
-  GeoQuiz.prototype.getCurrentPlace = function(){
+  Geoquiz.prototype.getCurrentPlace = function(){
     return this.places[this.currentPlaceIndex];
   }
 
-  GeoQuiz.prototype.attachEventListeners = function(){
+  Geoquiz.prototype.attachEventListeners = function(){
     var geoQuiz = this;
     google.maps.event.addListener(this.map, "click", function(event) {
       var latLng = new google.maps.LatLng(
@@ -108,7 +108,7 @@
     });
   }
 
-  GeoQuiz.prototype.guess = function(latLng){
+  Geoquiz.prototype.guess = function(latLng){
     var placeLatLng = this.getPlaceLatLng(this.getCurrentPlace());
     var distance = google.maps.geometry.spherical.computeDistanceBetween(
       latLng,
@@ -123,7 +123,7 @@
     this.nextQuestion();
   };
 
-  GeoQuiz.prototype.showPath = function(itinerary){
+  Geoquiz.prototype.showPath = function(itinerary){
     this.distancePath = new google.maps.Polyline({
       path: itinerary,
       geodesic: true,
@@ -134,7 +134,7 @@
     this.distancePath.setMap(this.map);
 
   }
-  GeoQuiz.prototype.addMarker = function(latLng, title, color){
+  Geoquiz.prototype.addMarker = function(latLng, title, color){
     var marker = new google.maps.Marker({
         position: latLng,
         map: this.map,
@@ -146,7 +146,7 @@
     return marker;
   };
 
-  GeoQuiz.prototype.getMarkerIcon = function(color){
+  Geoquiz.prototype.getMarkerIcon = function(color){
     var icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
     if ( color === 'green' ){
       icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
@@ -155,7 +155,7 @@
   };
 
 
-  GeoQuiz.prototype.addPlaceMarker = function(place){
+  Geoquiz.prototype.addPlaceMarker = function(place){
     var latLng = new google.maps.LatLng(
         place.lat,
         place.lng

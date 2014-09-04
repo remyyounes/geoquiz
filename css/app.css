@@ -1,0 +1,30 @@
+body {
+  font-family: arial;
+}
+.marker-list {
+  background: #ddd;
+  width: 400px;
+}
+
+.marker-list ul {
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+}
+.marker-list h1 {
+  padding: 10px;
+  margin: 0;
+  background: #ccc;
+}
+
+.marker-list .marker {
+  padding: 2px 5px;
+  background: #eee;
+  margin-bottom: 10px;
+}
+
+.marker-list button {
+  border: 0;
+  background: #ccc;
+  margin: auto 5px;
+}

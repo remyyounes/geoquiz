@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 var MarkerList = require('./MarkerList.react');
 var MarkerMap = require('./MarkerMap.react');
+var Quiz = require('./Quiz.react');
 var React = require('react');
 var GeoquizStore = require('../stores/GeoquizStore');
 
@@ -39,6 +40,7 @@ var GeoquizApp = React.createClass({
         <MarkerMap
           allMarkers={this.state.allMarkers}
         />
+        <Quiz/>
       </div>
   	);
   },

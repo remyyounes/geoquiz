@@ -4,9 +4,12 @@
 // =====================
 // =====================
 
-var geocoder = new google.maps.Geocoder();
+var geocoder;
 var Q = require('q');
 
+var getGeocoder = function() {
+  return geocoder || new google.maps.Geocoder();
+}
 var CoordinatesManager = function(params) {
   this.locations = params.locations;
   this.requestDelay = params.requestDelay || 500,
@@ -40,7 +43,8 @@ CoordinatesManager.prototype.addressResultHandler = function(results, status) {
 CoordinatesManager.prototype.getCoordinates = function(address) {
   var deferred = Q.defer();
   var cm = this;
-  geocoder.geocode( {address: address} , function(results, status) {
+
+  getGeocoder().geocode( {address: address} , function(results, status) {
     var marker = cm.addressResultHandler(results, status);
     deferred.resolve(marker);
   });

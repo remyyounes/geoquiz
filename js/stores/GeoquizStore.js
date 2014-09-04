@@ -20,6 +20,10 @@ function addMarker(marker) {
   _markers[marker.formatted_address] = marker;
 };
 
+function removeMarker(marker) {
+  delete _markers[marker.formatted_address];
+};
+
 var GeoquizStore = merge(EventEmitter.prototype, {
   getAll: function() {
     return _markers;
@@ -43,6 +47,9 @@ AppDispatcher.register( function(payload) {
       break;
     case GeoquizConstants.MARKER_ADD:
       addMarker(action.marker);
+      break;
+    case GeoquizConstants.MARKER_DELETE:
+      removeMarker(action.marker);
       break;
     default:
       return true;

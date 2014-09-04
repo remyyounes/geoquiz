@@ -17,8 +17,12 @@ var Marker = React.createClass({
     return (
       <li className="marker">
         {marker.formatted_address}
-        <button>delete</button>
-      </li> );
+        <button onClick={this._onClick}>delete</button>
+      </li>
+    );
+  },
+  _onClick: function() {
+    GeoquizActions.removeMarker(this.props.marker);
   }
 });
 

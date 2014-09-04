@@ -19,6 +19,13 @@ var GeoquizActions = {
       actionType: GeoquizConstants.MARKER_DELETE,
       marker: marker
     })
+  },
+  toggleEnabled: function(marker) {
+    var at = marker.enabled ? GeoquizConstants.MARKER_DISABLE : GeoquizConstants.MARKER_ENABLE;
+    AppDispatcher.handleViewAction({
+      actionType: at,
+      marker: marker
+    })
   }
 }
 

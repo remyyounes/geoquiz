@@ -41,3 +41,7 @@ input[type="text"] {
 .map {
   display: inline-block;
 }
+
+.marker.disabled {
+  color: #aaa;
+}

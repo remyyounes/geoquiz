@@ -32,31 +32,50 @@ var MarkerMap = React.createClass({
     return {
       map: null,
       allMarkers: {},
-      googleMarkers: []
+      mapMarkers: []
     };
   },
-
+  removeMapMarkers: function() {
+    var gMarkers = this.state.mapMarkers;
+    for(var key in gMarkers) {
+      gMarkers[key].setMap(null);
+    }
+    gMarkers = [];
+  },
+  addMapMarkers: function(markers) {"use strict";
+    var mapMarkers = [];
+    var mapMarker = null;
+    for(var key in markers) {
+      mapMarker = this.addMapMarker(markers[key]);
+      if(mapMarker) mapMarkers.push( mapMarker );
+    }
+    return mapMarkers;
+  },
+  addMapMarker: function(marker) {
+    var mapMarker = null;
+    var map = this.state.map;
+    if(marker.enabled) {
+      var mapMarker = toMapMarker(marker, map);
+      mapMarker.setMap(map);
+    }
+    return mapMarker;
+  },
   updateMarkers: function(updatedMarkers) {
     debugger;
     var markers = this.state.allMarkers;
-    var googleMarkers = this.state.googleMarkers;
     var map = this.state.map;
-    for(var key in googleMarkers) {
-      googleMarkers[key].setMap(null);
-    }
-    this.state.allMarkers = {};
-    this.state.googleMarkers = [];
-
     var marker = null;
-    for(key in updatedMarkers) {
-      marker = toMapMarker(updatedMarkers[key], map);
-      marker.setMap(map);
-      googleMarkers.push( marker );
-    }
+    var mapMarkers = null;
+
+    this.removeMapMarkers();
+    this.state.allMarkers = {};
+
+    mapMarkers = this.addMapMarkers(updatedMarkers);
+
     this.setState({
       allMarkers: updatedMarkers,
-      googleMarkers: googleMarkers
-      });
+      mapMarkers: mapMarkers
+    });
   },
   render: function() {
     var style = {

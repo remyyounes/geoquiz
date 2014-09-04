@@ -17,7 +17,13 @@ function fetchMarker(marker) {
 };
 
 function addMarker(marker) {
+  marker.enabled = true;
   _markers[marker.formatted_address] = marker;
+};
+
+function update(marker, updates) {
+  var id = marker.formatted_address;
+  _markers[id] = merge(_markers[id], updates);
 };
 
 function removeMarker(marker) {
@@ -52,7 +58,10 @@ AppDispatcher.register( function(payload) {
       removeMarker(action.marker);
       break;
     case GeoquizConstants.MARKER_ENABLE:
-      enableMarker(action.marker);
+      update(action.marker, {enabled: true});
+      break;
+    case GeoquizConstants.MARKER_DISABLE:
+      update(action.marker, {enabled: false});
       break;
     default:
       return true;

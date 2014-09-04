@@ -192,6 +192,9 @@ var _prefix = 'ID_';
         }
         this.$Dispatcher_invokeCallback(id);
       }
+    } catch(e){
+      // catch necessary ?
+        console.error("Dispatching encountered an error");
     } finally {
       this.$Dispatcher_stopDispatching();
     }

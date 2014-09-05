@@ -5,6 +5,13 @@ var GeoquizActions = require('../actions/GeoquizActions');
 var GeoquizStore = require('../stores/GeoquizStore');
 var Marker = require('./Marker.react');
 
+window.onGoogleMapLoaded = function(){
+  var callbacks = window.googleMapCallbacks || [];
+  for (var i = 0; i < callbacks.length; i++) {
+    callbacks[i]();
+  }
+}
+
 var toMapMarker = function(marker, map){
   var location = new google.maps.LatLng(
     marker.geometry.location.lat(),
@@ -84,31 +91,49 @@ var MarkerMap = React.createClass({
     }
     return (
       <div
-        className="map"
+        className="markermap"
         style={style}
       />);
   },
   componentDidMount: function() {
     GeoquizStore.addChangeListener(this._onChange);
-    window.mapLoaded = (function(){
-      var mapCenter = new google.maps.LatLng( -4.422175, 3.3605883999999833);
-      var mapOptions = {
-        zoom: 2,
-        center: mapCenter,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
-      var map = new google.maps.Map( this.getDOMNode(), mapOptions);
-      this.setState({map: map});
-    }).bind(this);
-
-    var mapScript = document.createElement('script');
-    mapScript.src = [
-      'https://maps.googleapis.com/maps/api/js?sensor=false',
-      // '&key=', this.props.gmaps_api_key,
-      '&callback=mapLoaded'
-    ].join("");
-    document.head.appendChild( mapScript );
-
+    window.markerMapLoaded = (this._markerMapLoaded).bind(this);
+    this.insertGoogleMapScript(markerMapLoaded);
+  },
+  addGooglemapCallback: function(callback) {
+    window.googleMapCallbacks = window.googleMapCallbacks || [];
+    window.googleMapCallbacks.push(callback);
+  },
+  _markerMapLoaded: function(){
+    debugger;
+    window.isGmapLoaded = true;
+    var mapCenter = new google.maps.LatLng( -4.422175, 3.3605883999999833);
+    var mapOptions = {
+      zoom: 2,
+      center: mapCenter,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map( this.getDOMNode(), mapOptions);
+    this.setState({map: map});
+  },
+  insertGoogleMapScript: function(callback) {
+    if (document.getElementById('gmapScript')){
+      if(window.isGmapLoaded) {
+        callback();
+      }else{
+        this.addGooglemapCallback(callback);
+      }
+    }else{
+      this.addGooglemapCallback(callback);
+      var mapScript = document.createElement('script');
+      mapScript.id = 'gmapScript';
+      mapScript.src = [
+        'https://maps.googleapis.com/maps/api/js?sensor=false',
+        // '&key=', this.props.gmaps_api_key,
+        '&callback=onGoogleMapLoaded'
+      ].join("");
+      document.head.appendChild( mapScript );
+    }
   },
   _onChange: function(){
     this.setState(getMarkerMapState());

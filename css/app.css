@@ -38,7 +38,7 @@ input[type="text"] {
   margin: auto 5px;
 }
 
-.map {
+.quizmap, .markermap {
   display: inline-block;
 }
 

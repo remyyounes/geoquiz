@@ -21,12 +21,12 @@ var MarkerList = React.createClass({
         <ul>
           {markers}
           <li>
+          </li>
+        </ul>
             <MarkerAdder
               onSave={this._onSave}
               placeholder="Type an Address"
             />
-          </li>
-        </ul>
       </div>
     );
   },

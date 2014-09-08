@@ -10,12 +10,16 @@ var Q = require('q');
 var _markers = {};
 
 var cm = new CoordinatesManager({});
+
+// =============
+// STORE HELPERS
+// =============
+
 function fetchMarker(marker) {
   cm.getCoordinates(marker.formatted_address).then( function(marker){
     GeoquizActions.addMarker(marker);
   });
 };
-
 
 function addMarker(marker) {
   marker.enabled = true;
@@ -46,6 +50,9 @@ function startQuiz() {
   removeMarkers();
 };
 
+// =====
+// STORE
+// =====
 var GeoquizStore = merge(EventEmitter.prototype, {
   getAll: function() {
     return _markers;
@@ -60,6 +67,12 @@ var GeoquizStore = merge(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   }
 });
+
+// ===================================
+// DISPATCHER
+// STORE PROVIDES A CALLBACK
+// WHICH WILL BE CALLED ON DATA CHANGE
+// ===================================
 
 AppDispatcher.register( function(payload) {
   var action = payload.action;
@@ -85,7 +98,7 @@ AppDispatcher.register( function(payload) {
     default:
       return true;
   };
-
+  // AFTER WE'VE HANDLED THE PAYLOAD, WE TRIGGER A CHANGE
   GeoquizStore.emitChange();
   return true;
 });

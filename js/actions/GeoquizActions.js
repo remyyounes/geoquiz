@@ -26,6 +26,11 @@ var GeoquizActions = {
       actionType: at,
       marker: marker
     })
+  },
+  startQuiz: function() {
+    AppDispatcher.handleViewAction({
+      actionType: GeoquizConstants.START_QUIZ
+    })
   }
 }
 

@@ -62,13 +62,11 @@ var MarkerMap = React.createClass({
     var mapMarker = null;
     var map = this.state.map;
     if(marker.enabled) {
-      var mapMarker = toMapMarker(marker, map);
-      mapMarker.setMap(map);
+      mapMarker = toMapMarker(marker, map);
     }
     return mapMarker;
   },
   updateMarkers: function(updatedMarkers) {
-    debugger;
     var markers = this.state.allMarkers;
     var map = this.state.map;
     var marker = null;
@@ -105,7 +103,6 @@ var MarkerMap = React.createClass({
     window.googleMapCallbacks.push(callback);
   },
   _markerMapLoaded: function(){
-    debugger;
     window.isGmapLoaded = true;
     var mapCenter = new google.maps.LatLng( -4.422175, 3.3605883999999833);
     var mapOptions = {
@@ -136,7 +133,8 @@ var MarkerMap = React.createClass({
     }
   },
   _onChange: function(){
-    this.setState(getMarkerMapState());
+    var newState = getMarkerMapState()
+    this.setState(newState);
     this.updateMarkers(this.state.allMarkers);
   }
 });

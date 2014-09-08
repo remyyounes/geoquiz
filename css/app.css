@@ -1,35 +1,45 @@
+/*=======*/
+/*GENERAL*/
+/*=======*/
 body {
   margin: 0;
   font-family: arial;
 }
+
+* {
+  box-sizing: border-box;
+}
+
 input[type="text"] {
   padding: 5px;
   margin: 0;
 }
 
-.marker-list {
-  display: inline-block;
-  background: #ddd;
+/*=====*/
+/*ASIDE*/
+/*=====*/
+
+.aside {
   width: 400px;
   height:100vh;
+  display: inline-block;
   vertical-align: top;
+  background: #ddd;
 }
-
-.marker-list ul {
-  padding: 10px;
-  list-style: none;
-  margin: 0;
-}
-.marker-list h1 {
+.aside h1 {
   padding: 10px;
   margin: 0;
   background: #ccc;
 }
 
-.marker-list .marker {
-  padding: 5px;
-  background: #eee;
-  margin-bottom: 10px;
+/*===========*/
+/*MARKER LIST*/
+/*===========*/
+
+.marker-list ul {
+  padding: 10px;
+  list-style: none;
+  margin: 0;
 }
 
 .marker-list button {
@@ -38,10 +48,19 @@ input[type="text"] {
   margin: auto 5px;
 }
 
-.quizmap, .markermap {
-  display: inline-block;
+.marker-list .marker {
+  padding: 5px;
+  background: #eee;
+  margin-bottom: 10px;
 }
 
-.marker.disabled {
+.marker-list .marker.disabled {
   color: #aaa;
+}
+/*===*/
+/*MAP*/
+/*===*/
+
+.quizmap, .markermap {
+  display: inline-block;
 }

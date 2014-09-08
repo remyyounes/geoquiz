@@ -34,13 +34,11 @@ var GeoquizApp = React.createClass({
   render: function() {
   	return (
       <div>
-        <MarkerList
-          allMarkers={this.state.allMarkers}
-        />
-        <MarkerMap
-          allMarkers={this.state.allMarkers}
-        />
-        <Quiz/>
+        <div className="aside">
+          <Quiz/>
+          <MarkerList allMarkers={this.state.allMarkers} />
+        </div>
+        <MarkerMap allMarkers={this.state.allMarkers}  />
       </div>
   	);
   },

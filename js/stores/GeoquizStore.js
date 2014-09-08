@@ -16,6 +16,7 @@ function fetchMarker(marker) {
   });
 };
 
+
 function addMarker(marker) {
   marker.enabled = true;
   _markers[marker.formatted_address] = marker;
@@ -28,6 +29,21 @@ function update(marker, updates) {
 
 function removeMarker(marker) {
   delete _markers[marker.formatted_address];
+};
+
+function getMarkersIds(){
+  var ids = [];
+  for (var id in _markers) ids.push(id);
+  return ids;
+}
+
+function removeMarkers() {
+  var ids = getMarkersIds();
+  for (var i = 0; i < ids.length; i++) delete _markers[ids[i]];
+};
+
+function startQuiz() {
+  removeMarkers();
 };
 
 var GeoquizStore = merge(EventEmitter.prototype, {
@@ -62,6 +78,9 @@ AppDispatcher.register( function(payload) {
       break;
     case GeoquizConstants.MARKER_DISABLE:
       update(action.marker, {enabled: false});
+      break;
+    case GeoquizConstants.START_QUIZ:
+      startQuiz();
       break;
     default:
       return true;
